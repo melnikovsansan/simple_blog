@@ -1,0 +1,10 @@
+= simple_form_for @post, :html => { :class => "form-horizontal" }, turboboost: true do |f|
+  = f.input :title, input_html: {class: 'form-control'}
+  = error_span(@post[:title])
+  = f.input :content, as: :ckeditor
+  = error_span(@post[:content])
+  = f.input :published_at
+  = error_span(@post[:published_at])
+  = f.button :submit, :class => 'btn btn-primary'
+  '
+  = link_to t('.cancel', :default => t("helpers.links.cancel")), posts_path, :class => 'btn btn-default'

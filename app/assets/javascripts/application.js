@@ -12,5 +12,16 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require turbolinks
+//= require jquery.turbolinks
+//= require turboboost
+//= require ckeditor/init
+
 //= require_tree .
+$(function() {
+    $('input[type=submit]:not([data-disable-with])').attr('data-disable-with', function () {
+        return $(this).val()
+    })
+
+})

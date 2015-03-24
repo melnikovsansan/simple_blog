@@ -1,0 +1,15 @@
+- model_class = Post
+div class="page-header"
+  h1= @post.title
+= @post.content.html_safe
+hr
+.pull-right= l @post.published_at
+.pull-left= @post.user.decorate.name
+.clearfix
+hr
+= link_to t('.back', :default => t("helpers.links.back")), posts_path, :class => 'btn btn-default'
+-if can? :manage, @post
+  '
+  = link_to t('.edit', :default => t("helpers.links.edit")), edit_post_path(@post), :class => 'btn btn-default'
+  '
+  = link_to t('.destroy', :default => t("helpers.links.destroy")), post_path(@post), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'

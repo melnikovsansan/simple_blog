@@ -1,0 +1,9 @@
+- model_class = Post
+div class="page-header"
+  h1=t '.title', :default => model_class.model_name.human.pluralize.titleize
+= will_paginate @posts, renderer: BootstrapPagination::Rails
+- @posts.each do |post|
+  h4= link_to post.title, post_path(post)
+  = post.user.decorate.name
+  .pull-right= l post.published_at
+
