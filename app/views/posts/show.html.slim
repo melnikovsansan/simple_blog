@@ -7,6 +7,9 @@ hr
 .pull-left= @post.user.decorate.name
 .clearfix
 hr
+.comments
+  = render partial: 'comments/comments', object: @comments, locals: {commentable: @post}
+hr
 = link_to t('.back', :default => t("helpers.links.back")), posts_path, :class => 'btn btn-default'
 -if can? :manage, @post
   '

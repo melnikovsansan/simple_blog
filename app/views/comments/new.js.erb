@@ -1,0 +1,5 @@
+(function() {
+    var container = $('#<%= id_comments_container @comment.commentable %>')
+    container.append('<%= j render partial: 'form', object: @comment, as: :comment %>')
+    container.children('.new-comment').hide()
+})()

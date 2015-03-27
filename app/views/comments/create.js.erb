@@ -1,0 +1,7 @@
+(function() {
+    var container = $('#<%= id_comments_container @comment.commentable %>')
+    container.children('.new-comment')
+            .show()
+            .before('<%= j render partial: 'comment', object: @comment %>')
+    container.children('.comment-form').remove()
+})()

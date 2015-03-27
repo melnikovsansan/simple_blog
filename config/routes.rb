@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :posts do
     get :manage, on: :collection
   end
+  resources :comments, only: %i(create destroy new)
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

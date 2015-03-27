@@ -14,6 +14,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @comments = @post.comment_threads.order(created_at: :desc)
   end
 
   # GET /posts/new

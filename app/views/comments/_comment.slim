@@ -1,0 +1,6 @@
+.comment id = "comment-#{comment.id}"
+  = link_to '×', comment_path(comment), :method => :delete, :remote => true, :confirm => "Are you sure you want to remove this comment?", :class => 'close'
+  h4
+    = comment.user.decorate.name
+    small= comment.updated_at
+  p= comment.body

@@ -37,6 +37,7 @@ gem 'cancancan'
 gem 'rails-i18n'
 gem 'will_paginate-bootstrap'
 gem 'draper'
+gem 'acts_as_commentable_with_threading'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
