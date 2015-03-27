@@ -3,7 +3,7 @@ class UserDecorator < Draper::Decorator
 
 
   def name
-    model.email.split('@').first
+    [model.last_name, model.first_name].reject(&:blank?).join(' ')
   end
   # Define presentation-specific methods here. Helpers are accessed through
   # `helpers` (aka `h`). You can override attributes, for example:
