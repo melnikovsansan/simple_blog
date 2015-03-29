@@ -6,7 +6,7 @@ class Ability
     if user
       can :manage, Post, user_id: user.id
       can [:read, :create], Comment
-      can :delete, Comment, user_id: user.id
+      can :manage, Comment, user_id: user.id
     end
     # Define abilities for the passed in user here. For example:
     #

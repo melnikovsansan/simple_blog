@@ -13,7 +13,7 @@ hr
       #comment-footer-
         .text-right
           = link_to 'Добавить комментарий', new_comment_path(commentable_id: @post.id, commentable_type: 'Post'),
-                    remote: true, id: 'add-comment-form-for-comment-'
+                    remote: true, id: 'add-comment-form-for-comment-' if can? :create, Comment
   = render partial: 'comments/comment', collection: @comments
 hr
 = link_to t('.back', :default => t("helpers.links.back")), posts_path, :class => 'btn btn-default'

@@ -1,10 +1,12 @@
 class CommentsController < ApplicationController
 
   def new
+    authorize! :create, Comment
     @comment = Comment.new params.permit(:commentable_id, :commentable_type, :parent_id)
   end
 
   def create
+    authorize! :create, Comment
     comment_params = params.require(:comment)
     @commentable = Comment.find_commentable comment_params[:commentable_type], comment_params[:commentable_id]
     @comment = Comment.build_from @commentable, current_user.id, comment_params[:body]
@@ -15,7 +17,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    Comment.find(params[:id]).destroy!
+    @comment = Comment.find(params[:id])
+    authorize! :destroy, @comment
+    @comment.destroy!
   rescue Exception => e
     render js: "alert('#{e.message}')"
   end
