@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  load_and_authorize_resource only: :destroy
 
   def new
     authorize! :create, Comment
@@ -7,20 +8,14 @@ class CommentsController < ApplicationController
 
   def create
     authorize! :create, Comment
-    comment_params = params.require(:comment)
-    @commentable = Comment.find_commentable comment_params[:commentable_type], comment_params[:commentable_id]
-    @comment = Comment.build_from @commentable, current_user.id, comment_params[:body]
-    @comment.save!
-    @comment.move_to_child_of Comment.find(comment_params[:parent_id]) if comment_params[:parent_id].present?
+    @comment = Comment.create_and_bind params.require(:comment), current_user.id
   rescue Exception => e
-    render js: "alert('#{e.message}')"
+    render_alert e
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
-    authorize! :destroy, @comment
     @comment.destroy!
   rescue Exception => e
-    render js: "alert('#{e.message}')"
+    render_alert e
   end
 end

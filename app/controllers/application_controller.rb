@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
     redirect_to (user_signed_in? ? root_url : new_user_session_path), :alert => exception.message
   end
 
+  def render_alert(e)
+    render js: "alert('#{ e.message.gsub '\'', '\\'}')"
+  end
+
   protected
 
   def configure_permitted_parameters
