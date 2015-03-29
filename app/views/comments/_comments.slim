@@ -1,4 +1,0 @@
-div id= "#{id_comments_container commentable}"
-  = render :partial => 'comments/comment', :collection => comments
-  .text-right.new-comment
-    = link_to_new_comment 'New comment', commentable, remote: true, class: 'btn btn-sm btn-default'

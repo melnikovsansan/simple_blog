@@ -1,8 +1,13 @@
 class Comment < ActiveRecord::Base
+
   acts_as_nested_set :scope => [:commentable_id, :commentable_type]
+
+  attr_accessor :cached_children
 
   validates :body, :presence => true
   validates :user, :presence => true
+
+  after_initialize { @cached_children ||= []}
 
   # NOTE: install the acts_as_votable plugin if you
   # want user to vote on the quality of comments.
@@ -21,6 +26,13 @@ class Comment < ActiveRecord::Base
       :commentable => obj,
       :body        => comment,
       :user_id     => user_id
+  end
+
+  def self.build_tree(comments)
+    comments.each do |comment|
+      next if comment.root?
+      comments.detect {|c| c.id.eql? comment.parent_id}.cached_children << comment
+    end.reject(&:parent_id)
   end
 
   #helper method to check if a comment has children

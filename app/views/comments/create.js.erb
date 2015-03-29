@@ -1,7 +1,4 @@
 (function() {
-    var container = $('#<%= id_comments_container @comment.commentable %>')
-    container.children('.new-comment')
-            .show()
-            .before('<%= j render partial: 'comment', object: @comment %>')
-    container.children('.comment-form').remove()
+    $('#comment-form-for-parent-<%= @comment.parent_id %>').remove()
+    $('#comment-<%= @comment.parent_id %> > .panel').after('<%= j render partial: 'comment', object: @comment %>').next().hide(0).show(400)
 })()

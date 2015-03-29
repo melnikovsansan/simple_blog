@@ -1,6 +1,18 @@
 .comment id = "comment-#{comment.id}"
-  = link_to '×', comment_path(comment), :method => :delete, :remote => true, :confirm => "Are you sure you want to remove this comment?", :class => 'close'
-  h4
-    = comment.user.decorate.name
-    small= comment.updated_at
-  p= comment.body
+  .pull-left.comment-avatar
+    = image_tag comment.user.avatar.url(:thumb), class: 'img-thumbnail'
+  .panel.panel-default
+    .panel-heading
+
+      => link_to '', comment_path(comment), :method => :delete, :remote => true, :confirm => 'Are you sure', \
+        :class => 'glyphicon glyphicon-remove pull-right', id: "remove-comment-#{comment.id}"
+      h4.panel-title
+        => comment.user.decorate.name
+        small= l comment.updated_at
+    .panel-body
+      p= comment.body
+    .panel-footer id="comment-footer-#{comment.id}"
+      .text-right
+        = link_to '', new_comment_path(commentable_id: comment.commentable_id, commentable_type: comment.commentable_type, parent_id: comment.id ),
+                  remote: true, class: 'glyphicon glyphicon-comment', id: "add-comment-form-for-comment-#{comment}"
+  = render partial: 'comments/comment', collection: comment.cached_children
