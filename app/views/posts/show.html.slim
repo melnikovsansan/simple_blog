@@ -8,6 +8,12 @@ hr
 .clearfix
 hr
 .comments
+  #comment-
+    .comment-container
+      #comment-footer-
+        .text-right
+          = link_to 'Добавить комментарий', new_comment_path(commentable_id: @post.id, commentable_type: 'Post'),
+                    remote: true, id: 'add-comment-form-for-comment-'
   = render partial: 'comments/comment', collection: @comments
 hr
 = link_to t('.back', :default => t("helpers.links.back")), posts_path, :class => 'btn btn-default'

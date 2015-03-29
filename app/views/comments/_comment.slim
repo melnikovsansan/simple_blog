@@ -1,7 +1,7 @@
 .comment id = "comment-#{comment.id}"
   .pull-left.comment-avatar
     = image_tag comment.user.avatar.url(:thumb), class: 'img-thumbnail'
-  .panel.panel-default
+  .panel.panel-default.comment-container
     .panel-heading
 
       => link_to '', comment_path(comment), :method => :delete, :remote => true, :confirm => 'Are you sure', \

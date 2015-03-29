@@ -1,4 +1,4 @@
 (function() {
     $('#comment-form-for-parent-<%= @comment.parent_id %>').remove()
-    $('#comment-<%= @comment.parent_id %> > .panel').after('<%= j render partial: 'comment', object: @comment %>').next().hide(0).show(400)
+    $('#comment-<%= @comment.parent_id %> > .comment-container').after('<%= j render partial: 'comment', object: @comment %>').next().hide(0).show(400)
 })()
