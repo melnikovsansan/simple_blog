@@ -15,4 +15,4 @@
       .text-right
         = link_to '', new_comment_path(commentable_id: comment.commentable_id, commentable_type: comment.commentable_type, parent_id: comment.id ),
                   remote: true, class: 'glyphicon glyphicon-comment', id: "add-comment-form-for-comment-#{comment}"  if can? :create, Comment
-  = render partial: 'comments/comment', collection: comment.cached_children
+  = render partial: 'comments/comment', collection: comment.children
