@@ -10,7 +10,7 @@ module ForestBuilder
 
     scope :build_forest, -> (collection = current_scope) do
       collection.each {|obj| obj.cached_children ||= []}
-          .reject { |obj| collection.detect {|el| el.id.eql? obj.parent_id}.children << obj if obj.parent_id }
+          .reject { |obj| collection.detect {|el| el.id.eql? obj.parent_id}.cached_children << obj if obj.parent_id }
     end
 
   end
