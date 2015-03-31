@@ -1,6 +1,5 @@
 class Comment < ActiveRecord::Base
-
-  attr_accessor :cached_children
+  include ForestBuilder
 
   # NOTE: install the acts_as_votable plugin if you
   # want user to vote on the quality of comments.
@@ -16,18 +15,15 @@ class Comment < ActiveRecord::Base
   scope :find_comments_by_user, lambda { |user|
                                 where(:user_id => user.id).order('created_at DESC')
                               }
-
   # Helper class method to look up all comments for
   # commentable class name and commentable id.
   scope :find_comments_for_commentable, lambda { |commentable_str, commentable_id|
                                         where(:commentable_type => commentable_str.to_s, :commentable_id => commentable_id).order('created_at DESC')
                                       }
 
-
   validates :body, :presence => true
   validates :user, :presence => true
 
-  after_initialize { @cached_children ||= []}
 
   acts_as_nested_set :scope => [:commentable_id, :commentable_type]
 
@@ -61,13 +57,6 @@ class Comment < ActiveRecord::Base
       comment.save!
       comment.move_to_child_of Comment.find(params[:parent_id]) if params[:parent_id].present?
       comment
-    end
-
-    def build_tree(comments)
-      comments.each do |comment|
-        next if comment.root?
-        comments.detect {|c| c.id.eql? comment.parent_id}.cached_children << comment
-      end.reject(&:parent_id)
     end
 
   end

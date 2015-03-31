@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-    @comments = Comment.build_tree @post.comment_threads.includes(:user).order(created_at: :desc)
+    @comments = @post.comment_threads.includes(:user).order(created_at: :desc).build_forest
   end
 
   # GET /posts/new
